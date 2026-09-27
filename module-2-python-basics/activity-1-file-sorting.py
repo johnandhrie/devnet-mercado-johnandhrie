@@ -1,24 +1,23 @@
 """
 Module 2 — Activity: File Sorting with os and shutil
-Student: [your name]
-Date: [date]
+Student: [Mercado, John Andhrie M.]
+Date: [09-26-2026]
 
 ============================================
 WHAT DID YOU BUILD? (explain in your own words)
 ============================================
-[Paste your working script below first, then come back and explain
-it here: what does your script do, and what rule did you use to
-sort the files? e.g. by extension, by name, by date, etc.]
-
+built a Python script that automatically organizes 
+a messy folder by sorting files into separate 
+subdirectories based on their file extensions
 
 ============================================
 KEY VOCABULARY
 ============================================
-- os module:
-- shutil module:
-- file path:
-- directory:
-(add more as needed)
+- os module: A built in Python tool used to interact with your operating system
+- shutil module: A Python tool used for file operations like moving, 
+copying, or deleting files and folders.
+- file path: : The exact address pointing to a file or folder on your computer.
+- directory: A folder that holds files and other subfolders.
 
 
 ============================================
@@ -30,22 +29,34 @@ Paste the code you already wrote for this activity below.
 import os
 import shutil
 
-# --- paste your existing code here ---
+target_dir = "./messy_folder"
 
+for filename in os.listdir(target_dir):
+    file_path = os.path.join(target_dir, filename)
+    
+    if os.path.isfile(file_path):
+        ext = filename.split(".")[-1].lower()
+        ext_folder = os.path.join(target_dir, ext)
+        
+        os.makedirs(ext_folder, exist_ok=True)
+        
+        shutil.move(file_path, os.path.join(ext_folder, filename))
 
 """
 ============================================
 A MISTAKE I MADE (or one I want to avoid)
 ============================================
-[what tripped you up while building this? e.g. a path that didn't
-exist, a file that got overwritten, something that didn't work the
-way you expected at first]
+Trying to move a file into a folder that didn't exist yet. At first, 
+my script crashed because shutil.move couldn't find the destination 
+directory. I learned to use os.makedirs(..., exist_ok=True) 
+first to automatically create the folder if it's missing.
 
 
 ============================================
 HOW THIS CONNECTS TO SOMETHING ELSE
 ============================================
-[optional: how is this similar to what real automation scripts do?
-think about your own gradebook/attendance workflow — could something
-like this save you time there?]
+It connects to my previous expense tracker project. 
+Instead of manually organizing downloaded receipt PDF 
+into separate folders, an automation script like this 
+could instantly sort them for you in seconds.
 """
